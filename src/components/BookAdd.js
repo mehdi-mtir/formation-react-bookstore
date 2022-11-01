@@ -1,6 +1,6 @@
 import {useState} from 'react';
 
-function BookAdd(){
+function BookAdd(props){
   const [livre, setLivre] = useState({titre : "", auteur : "", prix : ""});
 
   /*const onTitreChange = (event)=>{
@@ -19,10 +19,15 @@ function BookAdd(){
     setLivre({...livre, [target.name] : target.value})
   }
 
+  const onSubmitBook = (event)=>{
+    event.preventDefault();
+    props.addBookRef(livre);
+  }
+
   return (
     <div className="row">
       <h2>Ajouter un livre</h2>
-      <form>
+      <form onSubmit={(event)=>onSubmitBook(event)}>
         <div className="mb-3">
           <label htmlFor="titre" className="form-label">Titre</label>
           <input type="text" className="form-control" id="titre" value={livre.titre} name="titre" onChange={(event)=>onInputChange(event)} />

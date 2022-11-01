@@ -4,6 +4,7 @@ import BookList from './components/BookList';
 import {useState} from 'react';
 
 function App() {
+  const [action, setAction] = useState("");
   const [livres, setLivres] = useState([
     {
       id : 1,
@@ -24,11 +25,21 @@ function App() {
     }
   ]);
 
+  const addBook = (livre)=>{
+    const newLivre = {...livre, id : livres[livres.length-1].id + 1};
+    setLivres([...livres, newLivre]);
+    changeAction("");
+  }
+
+  const changeAction = (newAction)=>{
+    setAction(newAction);
+  }
+
   return (
     <div className="container">
       <h1>Gestion des livres</h1>
-        <BookList livres={livres} />
-        <BookAdd />
+        <BookList livres={livres} changeActionRef = {changeAction} />
+        {action === "add"?<BookAdd addBookRef = {addBook} />:""}
     </div>
   );
 }

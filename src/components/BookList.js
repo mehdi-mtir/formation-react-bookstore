@@ -3,7 +3,7 @@ function BookList(props){
   return (
     <>
     <h2>Liste des livres</h2>
-    <button className="btn btn-success">Ajouter un livre</button>
+    <button className="btn btn-success" onClick={()=>props.changeActionRef("add")}>Ajouter un livre</button>
     <table className="table table-striped">
       <thead>
         <tr>
