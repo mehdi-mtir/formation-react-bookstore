@@ -1,8 +1,8 @@
 import './App.css';
 import BookAdd from './components/BookAdd';
 import BookList from './components/BookList';
-import {useState} from 'react';
 import BookEdit from './components/BookEdit';
+import {useState} from 'react';
 
 function App() {
   const [action, setAction] = useState("");
@@ -27,21 +27,34 @@ function App() {
     }
   ]);
 
+
   const addBook = (livre)=>{
     const newLivre = {...livre, id : livres[livres.length-1].id + 1};
     setLivres([...livres, newLivre]);
     changeAction("");
   }
 
-  const showEditForm = async (book)=>{
-    console.log(book);
-    await setBookToEdit({...book});
-    await console.log(bookToEdit);
-    //changeAction("edit");
-  }
-
   const changeAction = (newAction)=>{
     setAction(newAction);
+  }
+
+  const showEditForm = (livre)=>{
+    setBookToEdit(livre);
+    setAction("edit");
+  }
+
+  const editBook = (livre)=>{
+    setLivres(
+      livres.map(
+        l=>{
+          if(l.id === livre.id)
+            return livre;
+          else
+            return l;
+        }
+      )
+    );
+    changeAction("");
   }
 
   return (
@@ -50,10 +63,10 @@ function App() {
         <BookList
           livres={livres}
           changeActionRef = {changeAction}
-          showEditFormRef = {showEditForm}
+          showEditFormRef={showEditForm}
         />
         {action === "add"?<BookAdd addBookRef = {addBook} />:""}
-        <BookEdit bookToEdit={bookToEdit}/>
+        {action === "edit"?<BookEdit editBookRef={editBook}  bookToEdit={bookToEdit} /> : ""}
     </div>
   );
 }

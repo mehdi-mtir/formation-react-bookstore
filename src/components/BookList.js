@@ -23,7 +23,7 @@ function BookList(props){
                         <td>{livre.titre}</td>
                         <td>{livre.auteur}</td>
                         <td>{livre.prix}</td>
-                        <td><button className="btn btn-primary" onClick={()=>props.showEditFormRef({...livre})}>Editer</button></td>
+                        <td><button className="btn btn-primary" onClick={()=>{props.showEditFormRef(livre);}}>Editer</button></td>
                         <td><button className="btn btn-danger">Supprimer</button></td>
                       </tr>
           )
@@ -31,6 +31,7 @@ function BookList(props){
         }
       </tbody>
     </table>
+
     </>
   )
 }
