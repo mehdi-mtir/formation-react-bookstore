@@ -18,7 +18,7 @@ function BookList(props){
       <tbody>
         {
           props.livres.map(
-            livre => <tr>
+            livre => <tr key={livre.id}>
                         <th scope="row">{livre.id}</th>
                         <td>{livre.titre}</td>
                         <td>{livre.auteur}</td>
