@@ -2,9 +2,11 @@ import './App.css';
 import BookAdd from './components/BookAdd';
 import BookList from './components/BookList';
 import {useState} from 'react';
+import BookEdit from './components/BookEdit';
 
 function App() {
   const [action, setAction] = useState("");
+  const [bookToEdit, setBookToEdit] = useState({});
   const [livres, setLivres] = useState([
     {
       id : 1,
@@ -31,6 +33,13 @@ function App() {
     changeAction("");
   }
 
+  const showEditForm = async (book)=>{
+    console.log(book);
+    await setBookToEdit({...book});
+    await console.log(bookToEdit);
+    //changeAction("edit");
+  }
+
   const changeAction = (newAction)=>{
     setAction(newAction);
   }
@@ -38,8 +47,13 @@ function App() {
   return (
     <div className="container">
       <h1>Gestion des livres</h1>
-        <BookList livres={livres} changeActionRef = {changeAction} />
+        <BookList
+          livres={livres}
+          changeActionRef = {changeAction}
+          showEditFormRef = {showEditForm}
+        />
         {action === "add"?<BookAdd addBookRef = {addBook} />:""}
+        <BookEdit bookToEdit={bookToEdit}/>
     </div>
   );
 }
